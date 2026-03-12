@@ -3,13 +3,11 @@ import { PrismaClient } from '@prisma/client';
 const prisma = new PrismaClient();
 
 async function main() {
-  console.log('Započeto punjenje baze (Seeding)...');
+  console.log('Seeding...');
 
-  // 1. Čišćenje baze prije punjenja
   await prisma.movie.deleteMany();
   await prisma.genre.deleteMany();
 
-  // 2. Svi tvoji filmovi iz Task 15
   const movieData = [
     {
         title: "Avatar",
@@ -199,7 +197,7 @@ async function main() {
     });
   }
 
-  console.log('Seeding uspješno završen sa svih 20 filmova! 🌱');
+  console.log('Seeding was successfull! 🌱');
 }
 
 main()
