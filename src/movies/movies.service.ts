@@ -10,4 +10,11 @@ return this.prisma.movie.findMany({
 include: { genres: true }
 });
 }
+
+async findOne(id: number) {
+return this.prisma.movie.findUnique({
+where: { id },
+include: { genres: true }
+});
+}
 }
