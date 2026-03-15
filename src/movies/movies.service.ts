@@ -5,16 +5,25 @@ import { PrismaService } from '../prisma.service';
 export class MoviesService {
 constructor(private prisma: PrismaService) {}
 
-async findAll() {
-return this.prisma.movie.findMany({
-include: { genres: true }
-});
-}
 
 async findOne(id: number) {
 return this.prisma.movie.findUnique({
 where: { id },
 include: { genres: true }
 });
+}
+
+async findAll(query: {genre?:string; search?:string}){
+    const {genre, search}=query;
+
+    return this.prisma.movie.findMany({
+        where:{
+            title:{contains:search, mode:'insensitive'},
+            genres:genre?{
+                some:{name:genre}
+            }:undefined,
+        },
+        include:{genres:true}
+    })
 }
 }
