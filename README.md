@@ -1,46 +1,48 @@
-🎬 Movie Explorer API
+# 🎬 Movie Explorer API
 
 REST API built with NestJS, Prisma and PostgreSQL for the Movie Explorer application.
 
 This API provides movie data, genre filtering, searching, sorting and favorite management.
 
-🚀 Features
+---
 
-CRUD operations for Movies
+## 🚀 Features
 
-CRUD operations for Genres (many-to-many with movies)
+* CRUD operations for Movies
+* CRUD operations for Genres (many-to-many with movies)
+* Manage Favorites
+* Search, sort and filter via query parameters
+* Swagger API documentation
+* PostgreSQL database running in Docker
+* Seed script with 20+ movies
 
-Manage Favorites
+---
 
-Search, sort and filter via query parameters
+## 🧱 Tech Stack
 
-Swagger API documentation
+* NestJS
+* Prisma ORM
+* PostgreSQL
+* Docker
+* Swagger
 
-PostgreSQL database running in Docker
+---
 
-Seed script with 20+ movies
+## ⚙️ Setup
 
-🧱 Tech Stack
-
-NestJS
-
-Prisma ORM
-
-PostgreSQL
-
-Docker
-
-Swagger
-
-⚙️ Setup
+```bash
 npm install
 docker compose up -d
 npx prisma migrate dev
 npx prisma db seed
 npm run start:dev
+```
 
-API runs at: http://localhost:3000
-Swagger docs: http://localhost:3000/api
+API runs at: **http://localhost:3000**
+Swagger docs: **http://localhost:3000/api**
+
+---
+
 
 ## 📦 Frontend Integration
 
