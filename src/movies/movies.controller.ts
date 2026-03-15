@@ -1,4 +1,4 @@
-import { Controller, Get, Query,Param, ParseIntPipe } from '@nestjs/common';  
+import { Controller, Get, Query,Param, ParseIntPipe, Patch, Body } from '@nestjs/common';  
 import { MoviesService } from './movies.service';
 import { ApiTags, ApiOperation, ApiQuery } from '@nestjs/swagger';
 
@@ -19,5 +19,11 @@ export class MoviesController {
   @ApiOperation({ summary: 'Dohvati detalje filma preko ID-a' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.moviesService.findOne(id);
+  }
+
+  @Patch(':id')
+  @ApiOperation({ summary: 'Ažuriraj status favorita' })
+  update(@Param('id', ParseIntPipe) id: number, @Body() body: { isFavorite: boolean }) {
+    return this.moviesService.update(id, body.isFavorite);
   }
 }
