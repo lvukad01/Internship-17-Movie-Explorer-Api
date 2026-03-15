@@ -21,6 +21,8 @@ model Movie {
   posterUrl   String
   isFavorite  Boolean  @default(false)
   genres      Genre[]  @relation("MovieGenres")
+  video      String   @default(" ")
+  rating     Float    @default(0.0)
 }
 
 model Genre {
