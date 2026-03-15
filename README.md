@@ -1,6 +1,6 @@
 # 🎬 Movie Explorer API
 
-REST API built with NestJS, Prisma and PostgreSQL for the Movie Explorer application.
+REST API built with NestJS, Prisma and PostgreSQL for the [Movie Explorer application](https://github.com/lvukad01/Internship-15-Movie-Explorer).
 
 This API provides movie data, genre filtering, searching, sorting and favorite management.
 
@@ -46,5 +46,5 @@ Swagger docs: **http://localhost:3000/api**
 
 ## 📦 Frontend Integration
 
-This API replaces external APIs or mock data previously used in the Internship-15-Movie-Explorer repository.
+This API replaces external APIs or mock data previously used in the [Internship-15-Movie-Explorer repository](https://github.com/lvukad01/Internship-15-Movie-Explorer).
 Favorites are now persisted in the database.
