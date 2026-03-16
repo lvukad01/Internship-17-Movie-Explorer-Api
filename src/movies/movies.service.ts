@@ -27,16 +27,7 @@ async findAll(query: {genre?:string; search?:string}){
     })
 }
 
-async update(id: number, isFavorite: boolean ){
-    return this.prisma.movie.update({
-        where: { 
-            id: id 
-            },
-            data: { 
-            isFavorite: isFavorite 
-            },
-    })
-}
+
 
 }
 

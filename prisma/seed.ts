@@ -1,13 +1,23 @@
 import { PrismaClient } from '@prisma/client';
+import * as bcrypt from 'bcrypt'
 
 const prisma = new PrismaClient();
 
 async function main() {
   console.log('Seeding...');
 
+  await prisma.favorite.deleteMany();
   await prisma.movie.deleteMany();
   await prisma.genre.deleteMany();
+  await prisma.user.deleteMany();
 
+  const hashedAdminPassword = await bcrypt.hash('admin123', 10);
+  await prisma.user.create({
+    data: {
+      email: 'admin@admin.com',
+      password: hashedAdminPassword,
+    },
+  });
   const movieData = [
 {
     title: "Avatar",

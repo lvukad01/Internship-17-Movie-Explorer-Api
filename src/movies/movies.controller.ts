@@ -21,9 +21,5 @@ export class MoviesController {
     return this.moviesService.findOne(id);
   }
 
-  @Patch(':id')
-  @ApiOperation({ summary: 'Ažuriraj status favorita' })
-  update(@Param('id', ParseIntPipe) id: number, @Body() body: { isFavorite: boolean }) {
-    return this.moviesService.update(id, body.isFavorite);
-  }
+
 }
