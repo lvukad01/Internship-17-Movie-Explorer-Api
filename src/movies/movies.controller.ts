@@ -15,11 +15,11 @@ export class MoviesController {
   findAll(@Query() query: { genre?: string; search?: string }) {
     return this.moviesService.findAll(query);
   }
+
   @Get(':id')
-  @ApiOperation({ summary: 'Dohvati detalje filma preko ID-a' })
+  @ApiOperation({ summary: 'Get movie  details through ID' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.moviesService.findOne(id);
   }
-
 
 }

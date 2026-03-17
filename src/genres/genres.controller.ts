@@ -8,7 +8,7 @@ export class GenresController {
   constructor(private readonly genresService: GenresService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Dohvati sve žanrove' })
+  @ApiOperation({ summary: 'Get all genres' })
   findAll() {
     return this.genresService.findAll();
   }

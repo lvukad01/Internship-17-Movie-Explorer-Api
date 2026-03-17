@@ -2,10 +2,12 @@ import { Injectable, UnauthorizedException } from '@nestjs/common';
 import { PrismaService } from 'src/prisma.service';
 import * as bcrypt from 'bcrypt'
 import {JwtService} from '@nestjs/jwt'
+import { LoginDto } from './dto/login.dto';
 
 @Injectable()
 export class AuthService {
-    constructor(
+    //DEPENDENCY INJECTION
+    constructor(    
         private prisma: PrismaService,
         private jwtService: JwtService,
     ){}
@@ -20,4 +22,21 @@ export class AuthService {
             },
         })
     }
+
+    async login(data: LoginDto){
+        const user = await this.prisma.user.findUnique({
+            where: {email: data.email}
+        });
+
+        if (!user) throw new UnauthorizedException('Wrong username or password');
+
+        const isPasswordValid = await bcrypt.compare(data.password,user.password)
+        if (!isPasswordValid) throw new UnauthorizedException('Wrong username or password')
+    
+        const payload = {sub: user.id, email: user.email, role: user.role};
+        return{
+            access_token: this.jwtService.sign(payload),
+        }
+    }
+
 }

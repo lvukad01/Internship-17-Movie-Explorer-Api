@@ -9,13 +9,13 @@ async function bootstrap() {
 
   const config = new DocumentBuilder()
     .setTitle('Movie Explorer API')
-    .setDescription('API za filmove, žanrove i favorite')
+    .setDescription('API for movies, genre and favorites')
     .setVersion('1.0')
     .build();
     
   const document = SwaggerModule.createDocument(app, config);
   SwaggerModule.setup('api', app, document);
-  
+
   app.useGlobalPipes(new ValidationPipe()); 
 
   await app.listen(process.env.PORT ?? 3000);
