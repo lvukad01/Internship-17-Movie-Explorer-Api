@@ -1,5 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
+import { CreateMovieDto } from './dto/create-movie.dto';
+
 
 @Injectable()
 export class MoviesService {
@@ -27,7 +29,29 @@ async findAll(query: {genre?:string; search?:string}){
     })
 }
 
+async create(data: CreateMovieDto) {
+  const { genre, ...movieData } = data;
 
-
+  return this.prisma.movie.create({
+    data: {
+      title: movieData.title,
+      year: movieData.year,
+      director: movieData.director,
+      posterUrl: movieData.posterUrl,
+      description: movieData.description ?? " ", 
+      genres: {
+        connectOrCreate: genre.map((name) => ({
+          where: { name: name },
+          create: { name: name },
+        })),
+      },
+    },
+    include: {
+      genres: true,
+    },
+  });
 }
+}
+
+
 

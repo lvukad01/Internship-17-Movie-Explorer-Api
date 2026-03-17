@@ -16,6 +16,7 @@ async function main() {
     data: {
       email: 'admin@admin.com',
       password: hashedAdminPassword,
+      role: 'ADMIN',
     },
   });
   const movieData = [
@@ -219,8 +220,7 @@ async function main() {
     video: "https://youtu.be/SDnYMbYB-nU?si=qA95wUXHG7D8X9tu",
     rating: 7.8
   }
-  ];
-
+  ]
 for (const item of movieData) {
     const genreLinks = item.genres.map((name) => ({
       where: { name },

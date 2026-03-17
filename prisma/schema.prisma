@@ -30,7 +30,7 @@ model User{
 model Movie {
   id          Int      @id @default(autoincrement())
   title       String
-  description String
+  description String   @default(" ")   
   year        Int
   director    String
   posterUrl   String

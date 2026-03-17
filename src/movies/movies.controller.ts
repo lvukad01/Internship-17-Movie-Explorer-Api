@@ -8,7 +8,7 @@ export class MoviesController {
   constructor(private readonly moviesService: MoviesService) {}
 
   @Get()
-  @ApiOperation({ summary: 'Dohvati sve filmove uz mogućnost filtriranja' })
+  @ApiOperation({ summary: 'Get movies with filter' })
   @ApiQuery({ name: 'genre', required: false })
   @ApiQuery({ name: 'search', required: false })
 

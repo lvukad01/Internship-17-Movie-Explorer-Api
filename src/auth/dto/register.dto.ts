@@ -7,4 +7,6 @@ export class RegisterDto{
     @IsNotEmpty()
     @MinLength(6, {message: 'Password should have at least 6 characters'})
     password: string;
+
+    
 }
