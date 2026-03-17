@@ -1,6 +1,10 @@
-import { Controller, Get, Query,Param, ParseIntPipe, Patch, Body } from '@nestjs/common';  
+import { Controller, Get, Query,Param, ParseIntPipe, Patch, Body, Post, UseGuards } from '@nestjs/common';  
 import { MoviesService } from './movies.service';
 import { ApiTags, ApiOperation, ApiQuery } from '@nestjs/swagger';
+import { Role } from '@prisma/client';
+import { CreateMovieDto } from './dto/create-movie.dto';
+import { JwtAuthGuard } from 'src/auth/jwt-auth.guard';
+import { RolesGuard } from 'src/auth/roles.guard';
 
 @ApiTags('movies')
 @Controller('movies')
@@ -20,6 +24,12 @@ export class MoviesController {
   @ApiOperation({ summary: 'Get movie  details through ID' })
   findOne(@Param('id', ParseIntPipe) id: number) {
     return this.moviesService.findOne(id);
+  }
+
+  @Post()
+  @UseGuards(JwtAuthGuard, RolesGuard)
+  create(@Body() createMovieDto: CreateMovieDto) {
+    return this.moviesService.create(createMovieDto);
   }
 
 }
