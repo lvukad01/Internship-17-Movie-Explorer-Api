@@ -15,14 +15,14 @@ include: { genres: true }
 });
 }
 
-async findAll(query: {genre?:string; search?:string}){
-    const {genre, search}=query;
+async findAll(query: {genres?:string; search?:string}){
+    const {genres, search}=query;
 
     return this.prisma.movie.findMany({
         where:{
             title:{contains:search, mode:'insensitive'},
-            genres:genre?{
-                some:{name:genre}
+            genres:genres?{
+                some:{name:genres}
             }:undefined,
         },
         include:{genres:true}
@@ -30,7 +30,7 @@ async findAll(query: {genre?:string; search?:string}){
 }
 
 async create(data: CreateMovieDto) {
-  const { genre, ...movieData } = data;
+  const { genres, ...movieData } = data;
 
   return this.prisma.movie.create({
     data: {
@@ -40,11 +40,13 @@ async create(data: CreateMovieDto) {
       posterUrl: movieData.posterUrl,
       description: movieData.description ?? " ", 
       genres: {
-        connectOrCreate: genre.map((name) => ({
+        connectOrCreate: genres.map((name) => ({
           where: { name: name },
           create: { name: name },
         })),
       },
+    rating:Number(movieData.rating),
+    video: movieData.video ?? " ",
     },
     include: {
       genres: true,

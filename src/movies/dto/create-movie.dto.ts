@@ -1,4 +1,4 @@
-import { IsString, IsNotEmpty, IsOptional, IsNumber, IsArray, isString } from "class-validator";
+import { IsString, IsNotEmpty, IsOptional, IsNumber, IsArray } from "class-validator";
 
 export class CreateMovieDto {
     @IsString()
@@ -20,10 +20,17 @@ export class CreateMovieDto {
     @IsNotEmpty()
     @IsString({ each: true})
     @IsArray()
-    genre: string[];
+    genres: string[];
 
     @IsNotEmpty()
     @IsString()
     director: string;
 
+    @IsNumber()
+    @IsNotEmpty()
+    rating:number;
+
+    @IsString()
+    @IsOptional()
+    video:string;
 }
