@@ -11,4 +11,24 @@ export class FavoritesService {
             include:{movie:true}
         })
     }
+
+    async create(userId:number,movieId:number){
+        return this.prisma.favorite.create({
+            data:{
+                userId:userId,
+                movieId:movieId,
+            },
+        })
+    }
+
+    async remove(userId:number,movieId:number){
+        return this.prisma.favorite.delete({
+            where: {
+                userId_movieId: { 
+                    userId: userId,
+                    movieId: movieId,
+                },
+            }
+        })
+    }
 }

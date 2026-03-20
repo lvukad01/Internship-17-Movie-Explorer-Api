@@ -1,7 +1,8 @@
-import { IsEmail, IsNotEmpty, MinLength} from 'class-validator'
+import { IsEmail, IsNotEmpty, MaxLength, MinLength} from 'class-validator'
 
 export class RegisterDto{
     @IsEmail({},{message: 'Please enter valid email format'})
+    @MaxLength(50, { message: 'Email is too long (max 50 characters)' })
     email: string;
 
     @IsNotEmpty()

@@ -1,6 +1,7 @@
-import { Injectable } from '@nestjs/common';
+import { Injectable, NotFoundException } from '@nestjs/common';
 import { PrismaService } from '../prisma.service';
 import { CreateMovieDto } from './dto/create-movie.dto';
+import { UpdateMovieDto } from './dto/update-movie.dto';
 
 
 @Injectable()
@@ -53,7 +54,32 @@ async create(data: CreateMovieDto) {
     },
   });
 }
+
+
+async update(id:number,updateMovieDto: UpdateMovieDto){
+    const { genres, ...movieData } = updateMovieDto;
+    return this.prisma.movie.update({
+        where:{id},
+        data:{
+        ...movieData,
+        ...(genres && {
+            genres: {
+                set: genres.map((genreId) => ({ id: Number(genreId) })),
+                },
+            }),
+        }
+    })
 }
 
+async remove(id: number) {
+  const movie = await this.prisma.movie.findUnique({ where: { id } });
+  if (!movie) throw new NotFoundException(`Movie with ID ${id} not found`);
+
+  return this.prisma.movie.delete({
+    where: { id },
+  });
+
+}
+}
 
 

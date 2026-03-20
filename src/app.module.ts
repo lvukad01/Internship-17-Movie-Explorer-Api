@@ -6,9 +6,13 @@ import { GenresModule } from './genres/genres.module';
 import { PrismaModule } from './prisma.module';
 import { AuthModule } from './auth/auth.module';
 import { FavoritesModule } from './favorites/favorites.module';
+import { ThrottlerModule } from '@nestjs/throttler';
 
 @Module({
-  imports: [MoviesModule, GenresModule,PrismaModule, AuthModule, FavoritesModule],
+  imports: [ThrottlerModule.forRoot([{
+      ttl: 60000, 
+      limit: 5,  
+    }]),MoviesModule, GenresModule,PrismaModule, AuthModule, FavoritesModule],
   controllers: [AppController],
   providers: [AppService],
 })
