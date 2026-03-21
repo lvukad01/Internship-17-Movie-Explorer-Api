@@ -1,36 +1,67 @@
-import { IsString, IsNotEmpty, IsOptional, IsNumber, IsArray } from "class-validator";
+import { 
+    IsString, 
+    IsNotEmpty, 
+    IsOptional, 
+    IsNumber, 
+    IsArray, 
+    IsUrl, 
+    Min, 
+    Max, 
+    MinLength, 
+    MaxLength, 
+    ArrayMinSize, 
+    Matches
+} from "class-validator";
 
 export class CreateMovieDto {
     @IsString()
     @IsNotEmpty()
-    title:string;
+    @MinLength(2, { message: 'Title is too short' })
+    @MaxLength(100, { message: 'Title is too long' })
+    title: string;
 
     @IsString()
     @IsNotEmpty()
+    @MinLength(10, { message: 'Description must be at least 10 characters long' })
+    @MaxLength(1000, { message: 'Description is too long' })
     description: string;
 
     @IsNotEmpty()
-    @IsString()
+    @IsUrl({}, { message: 'Poster must be a valid URL' }) 
+    @MaxLength(500, { message: 'Poster URL is too long' })
     posterUrl: string;
 
     @IsNumber()
     @IsNotEmpty()
-    year:number;
+    @Min(1888, { message: 'Movies didn’t exist before 1888' }) 
+    @Max(2030, { message: 'Year is too far in the future' })
+    year: number;
 
-    @IsNotEmpty()
-    @IsString({ each: true})
     @IsArray()
+    @ArrayMinSize(1, { message: 'Please provide at least one genre' })
+    @IsString({ each: true })
+    @Matches(/^[a-zA-Z\s\-]+$/, { 
+        each: true, 
+        message: 'Each genre must contain only letters, spaces or hyphens' 
+    })
     genres: string[];
 
     @IsNotEmpty()
     @IsString()
+    @MaxLength(100)
+    @Matches(/^[a-zA-Z\s\.\-]+$/, { 
+        message: 'Director name can only contain letters, spaces, dots or hyphens' 
+    })
     director: string;
 
     @IsNumber()
     @IsNotEmpty()
-    rating:number;
+    @Min(0, { message: 'Rating cannot be less than 0' })
+    @Max(10, { message: 'Rating cannot be more than 10' })
+    rating: number;
 
     @IsString()
     @IsOptional()
-    video:string;
+    @IsUrl({}, { message: 'Video must be a valid URL (e.g. YouTube link)' })
+    video?: string;
 }
